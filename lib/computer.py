@@ -1,10 +1,13 @@
 class Computer:
 
+    all = []
+
     def __init__(self, brand, model):
         self.brand = brand
         self.model = model
         self.memory_GB = 8
         self.storage_free = 1000
+        self.__class__.all.append(self)
 
     @property
     def brand(self):
@@ -67,20 +70,30 @@ class Computer:
 
     @classmethod
     def brands(cls):
-        pass
+        return [*set([comp.brand for comp in Computer.all])]
 
     @classmethod
     def models(cls):
-        pass
+        return [*set([comp.model for comp in Computer.all])]
 
     @classmethod
     def largest_memory(cls):
-        pass
+        return max(Computer.all, key=lambda comp: comp.memory_GB)
+        # curr_lg_comp = None
+        # curr_lg_memory = 0
+        # for comp in Computer.all:
+        #     if comp.memory_GB > curr_lg_memory:
+        #         curr_lg_comp = comp
+        #         curr_lg_memory = comp.memory_GB
+        # return curr_lg_comp
 
 
 if __name__ == "__main__":
 
     mbp = Computer("apple", "macbook pro m1")
+    air = Computer("apple", "mb air")
+    air2 = Computer("apple", "mb air")
+    acer = Computer("acer", "AX 213")
     print(mbp.brand)
     # mbp.brand = "hp"
     # mbp.model = "air"
@@ -92,3 +105,7 @@ if __name__ == "__main__":
     print(mbp.save_file({"name": "memoir.py", "size": 1128}))
     print(mbp.delete_file({"name": "homework.py", "size": 128}))
     print(mbp.specs())
+    print(Computer.brands())
+    print(Computer.models())
+    largest = Computer.largest_memory()
+    print(largest.specs())

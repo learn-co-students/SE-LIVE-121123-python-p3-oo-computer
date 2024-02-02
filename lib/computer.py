@@ -59,7 +59,8 @@ class Computer:
             return f'There is not enough space on disk to save {file["name"]}'
 
     def delete_file(self, file):
-        pass
+        self.storage_free += file["size"]
+        return f'{file["name"]} has been deleted!'
 
     def specs(self):
         return f"{self.model} has {self.memory_GB} GB of memory and {self.storage_free} GB of available storage."
@@ -89,3 +90,5 @@ if __name__ == "__main__":
     print(mbp.save_file({"name": "homework.py", "size": 128}))
     print(mbp.specs())
     print(mbp.save_file({"name": "memoir.py", "size": 1128}))
+    print(mbp.delete_file({"name": "homework.py", "size": 128}))
+    print(mbp.specs())

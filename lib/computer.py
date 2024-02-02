@@ -47,6 +47,8 @@ class Computer:
     def storage_free(self, value):
         if 0 <= value <= 1000:
             self._storage_free = value
+        else:
+            raise Exception("Storage must remain in range 0 ~ 1000")
 
     def upgrade_memory(self, RAM):
         self.memory_GB += RAM["size"]
